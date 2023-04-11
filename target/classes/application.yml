@@ -1,0 +1,50 @@
+server:
+  port: 9000
+
+spring:
+  security:
+    csrf:
+      enabled: false
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+
+---
+
+spring:
+  security:
+    csrf:
+      enabled: false
+  config:
+    activate:
+      on-profile: development
+  cloud:
+    gateway:
+      routes:
+        - id: usersManagement
+          uri: http://localhost:8080/
+          predicates:
+            - Path=/api/**
+        - id: niftiService
+          uri: http://localhost:9004/
+          predicates:
+            - Path=/model/**
+          filters:
+            - AuthenticationFilter
+        - id: resultsServer
+          uri: http://localhost:9005/
+          predicates:
+            - Path=/resultado/**
+          filters:
+            - AuthenticationFilter
