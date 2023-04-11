@@ -33,17 +33,17 @@ spring:
     gateway:
       routes:
         - id: usersManagement
-          uri: http://localhost:8080/
+          uri: http://users-management:8080/
           predicates:
             - Path=/api/**
-        - id: niftiService
-          uri: http://localhost:9004/
+        - id: modelService
+          uri: http://model-service:9004/
           predicates:
             - Path=/model/**
           filters:
             - AuthenticationFilter
         - id: resultsServer
-          uri: http://localhost:9005/
+          uri: http://results-server:9005/
           predicates:
             - Path=/resultado/**
           filters:
