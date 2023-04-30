@@ -2,6 +2,11 @@ server:
   port: 9000
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 60MB
+      max-request-size: 60MB
+      enabled: true
   security:
     csrf:
       enabled: false
@@ -36,15 +41,15 @@ spring:
           uri: http://localhost:8080/
           predicates:
             - Path=/api/**
-        - id: niftiService
-          uri: http://localhost:9004/
+        - id: modelService
+          uri: http://django_model:9004/
           predicates:
             - Path=/model/**
           filters:
             - AuthenticationFilter
         - id: resultsServer
-          uri: http://localhost:9005/
+          uri: http://localhost:8000/
           predicates:
-            - Path=/resultado/**
+            - Path=/queries/**
           filters:
             - AuthenticationFilter

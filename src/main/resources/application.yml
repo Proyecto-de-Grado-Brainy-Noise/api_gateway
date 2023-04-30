@@ -2,6 +2,11 @@ server:
   port: 9000
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 60MB
+      max-request-size: 60MB
+      enabled: true
   security:
     csrf:
       enabled: false
@@ -12,7 +17,7 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "http://localhost:4200"
+            allowedOrigins: "http://frontend:4200"
             allowedHeaders: "*"
             allowedMethods:
               - GET
@@ -37,14 +42,14 @@ spring:
           predicates:
             - Path=/api/**
         - id: modelService
-          uri: http://model-service:9004/
+          uri: http://django-model:9004/
           predicates:
             - Path=/model/**
           filters:
             - AuthenticationFilter
         - id: resultsServer
-          uri: http://results-server:9005/
+          uri: http://django-query:8000/
           predicates:
-            - Path=/resultado/**
+            - Path=/queries/**
           filters:
             - AuthenticationFilter
