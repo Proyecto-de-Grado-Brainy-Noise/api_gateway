@@ -48,7 +48,7 @@ spring:
           filters:
             - AuthenticationFilter
         - id: resultsServer
-          uri: http://django-query:8000/
+          uri: http://django-query:9005/
           predicates:
             - Path=/queries/**
           filters:
