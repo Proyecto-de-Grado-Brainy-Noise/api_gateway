@@ -17,7 +17,7 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "http://frontend:4200"
+            allowedOrigins: "http://frontend:80"
             allowedHeaders: "*"
             allowedMethods:
               - GET
